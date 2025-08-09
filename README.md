@@ -1,12 +1,21 @@
-# React + Vite
+# Markdown Notes App 📝
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple one-day project I built to play around with **React**, **Vite**, **Firebase** and a bit of **Docker**.
+The idea is pretty basic – an online notes app where you can log in, create notes in **Markdown**, and have them saved in the cloud.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 Login with Google (Firebase Auth)
+- 🗒 Create, edit and delete notes
+- ✍ Live Markdown preview
+- ☁ Store all notes in Firebase Firestore
+- 🎨 Styled with Tailwind CSS
+- 🐳 Optional Docker setup so you can run it easily
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Firebase](https://firebase.google.com/) (Auth + Firestore)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Docker](https://www.docker.com/)
