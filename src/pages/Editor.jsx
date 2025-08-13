@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -46,13 +54,73 @@ const Editor = () => {
     fetchNote();
   }, [noteId, currentUser, navigate]);
 
-  const handleSave = () => {
-    alert("TODO:add handleSave");
+  const handleSave = async () => {
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
+    if (!title) {
+      alert("Please enter a title.");
+      return;
+    }
+    if (!content) {
+      alert("Please add some content.");
+      return;
+    }
+    try {
+      //CREATE
+      let noteRef;
+      const dataToSave = {
+        title,
+        content,
+        updatedAt: serverTimestamp(),
+      };
+      if (noteId === "new") {
+        dataToSave.createdAt = serverTimestamp();
+        const notesCollectionRef = collection(
+          db,
+          "users",
+          currentUser.uid,
+          "notes"
+        );
+        noteRef = await addDoc(notesCollectionRef, dataToSave);
+        navigate(`/note/${noteRef.id}`);
+      } else {
+        //UPDATE EXISTING NOTE
+        noteRef = doc(db, "users", currentUser.uid, "notes", noteId);
+        await setDoc(noteRef, dataToSave);
+      }
+    } catch (error) {
+      console.error("[handleSave error] Error saving note", error.message);
+      alert("Failed to save note.");
+    }
   };
 
-  /* if (loading) {
+  const handleDelete = async () => {
+    if (
+      noteId === "new" ||
+      !window.confirm("Are you sure you want to delete note?")
+    ) {
+      return;
+    }
+    if (!currentUser) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const noteRef = doc(db, "users", currentUser.uid, "notes", noteId);
+      await deleteDoc(noteRef);
+      navigate("/");
+    } catch (error) {
+      console.error("[handleDelete] Error deleting note", error.message);
+      alert("Error deleting note.");
+    }
+  };
+
+  if (loading) {
     return <div className="text-center mt-10">Loading Editor...</div>;
-  } */
+  }
 
   return (
     <div className="flex flex-col h-[calc(100vh-6rem)]">
@@ -73,6 +141,14 @@ const Editor = () => {
         >
           Save
         </button>
+        {noteId !== "new" && (
+          <button
+            className="bg-red-400 hover:bg-red-600 cursor-pointer text-white font-bold py-2 px-4 rounded"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        )}
       </div>
       {/* EDITOR */}
       <div className="flex-grow grid grid-cols-1 md:grid-cols-2">
