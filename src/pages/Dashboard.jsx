@@ -74,21 +74,21 @@ const Dashboard = () => {
       {notes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {notes.map((note) => {
-            <div
-              key={note.id}
-              className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition-shadow"
-            >
-              <h2 className="text-2xl font-semibold truncate mb-2">
-                {note.title}
-              </h2>
-              <p className="text-gray-400 dark:text-gray-500 text-sm h-12 overflow-hidden">
-                {note.content.substring(0, 100)}
-              </p>
-              <div className="text-gray-400 dark:text-gray-500 text-xs mt-4">
-                Last updated :{" "}
-                {new Date(note.updatedAt?.toDate()).toLocaleString()}
+            <Link to={`/note/${note.id}`} key={note.id}>
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition-shadow">
+                <h2 className="text-2xl font-semibold truncate mb-2">
+                  {note.title}
+                </h2>
+                <p className="text-gray-400 dark:text-gray-500 text-sm h-12 overflow-hidden">
+                  {note.content.substring(0, 100)}
+                </p>
+                <div className="text-gray-400 dark:text-gray-500 text-xs mt-4">
+                  Last updated :{" "}
+                  {new Date(note.updatedAt?.toDate()).toLocaleString()}
+                </div>
               </div>
-            </div>;
+              ;
+            </Link>;
           })}
         </div>
       ) : (
