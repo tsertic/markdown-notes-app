@@ -136,14 +136,14 @@ const Editor = () => {
           className="text-2x w-full focus:outline-none bg-transparent"
         />
         <button
-          className="bg-blue-400 hover:bg-blue-600 font-bold rounded py-2 px-4 cursor-pointer text-white"
+          className="bg-blue-400 hover:bg-blue-600 font-bold rounded py-2 px-4 cursor-pointer text-white transition-colors duration-200"
           onClick={handleSave}
         >
           Save
         </button>
         {noteId !== "new" && (
           <button
-            className="bg-red-400 hover:bg-red-600 cursor-pointer text-white font-bold py-2 px-4 rounded"
+            className="bg-red-400 hover:bg-red-600 cursor-pointer text-white font-bold py-2 px-4 rounded transition-colors duration-200"
             onClick={handleDelete}
           >
             Delete
@@ -162,7 +162,7 @@ const Editor = () => {
             }}
           />
         </div>
-        <div className="h-full overflow-y-auto p-4 border-1 dark:border-gray-700">
+        <div className="h-full overflow-y-auto p-4 border-1 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 ">
           <article className="prose dark:prose-invert max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
           </article>

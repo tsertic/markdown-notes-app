@@ -64,7 +64,7 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold">Your Notes</h1>
         <Link
           to="/note/new"
-          className="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 rounded cursor-pointer"
+          className="bg-green-400 hover:bg-green-600 text-white font-bold py-2 px-3 rounded cursor-pointer transition-colors duration-200"
         >
           {" "}
           + New Note
@@ -75,7 +75,7 @@ const Dashboard = () => {
           {notes.map((note) => {
             return (
               <Link to={`/note/${note.id}`} key={note.id}>
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition-shadow">
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg  hover:scale-105 transition-all duration-200 cursor-pointer">
                   <h2 className="text-2xl font-semibold truncate mb-2">
                     {note.title}
                   </h2>
